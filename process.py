@@ -1,7 +1,7 @@
-import pygame, sys
+import pygame, sys, random, classes
 
-def process(player):
-	velocity = 2
+def process(player, FPS, total_frames, SCREENWIDTH):
+	velocity = 10
 
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
@@ -31,6 +31,22 @@ def process(player):
 
 	player.rect.x += player.velx
 	player.rect.y += player.vely
+
+	keys = pygame.key.get_pressed()
+
+	if keys[pygame.K_SPACE]:
+		classes.Bullet(player.rect.x, player.rect.y, "images/bullet.png")
+
+
+	Create_Flight(FPS, total_frames, SCREENWIDTH)
+
+
+def Create_Flight(FPS, total_frames, SCREENWIDTH):
+	three_second = FPS * 3
+	if total_frames % three_second == 0:
+		x = random.randint(1, SCREENWIDTH - 50)
+		classes.Flight(x, -20, "images/craft.jpg")
+
 
 
 
