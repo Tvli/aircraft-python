@@ -1,4 +1,4 @@
-import pygame
+import pygame, math
 
 
 class BaseClass(pygame.sprite.Sprite):
@@ -15,6 +15,11 @@ class BaseClass(pygame.sprite.Sprite):
 
 		self.rect.width
 		self.rect.height 
+
+	def destroy(self, ClassName):
+		ClassName.List.remove(self)
+		BaseClass.all_sprites.remove(self)
+		del self
 
 
 class Player(BaseClass):
@@ -41,6 +46,66 @@ class Player(BaseClass):
 		else:
 			self.rect.x += self.velx
 			self.rect.y += self.vely
+
+
+class Flight(BaseClass):
+	List = pygame.sprite.Group()
+	def __init__(self, x, y, image_string):
+		BaseClass.__init__(self, x, y, image_string)
+		Flight.List.add(self)
+		self.health = 100
+		self.velx, self.vely = 0, 2
+
+	def fly(self, SCREENHEIGHT):
+		self.rect.y += self.vely
+
+
+	@staticmethod
+	def update(SCREENHEIGHT):
+		for flight in Flight.List:
+			flight.fly(SCREENHEIGHT)
+
+			if flight.rect.y > SCREENHEIGHT:
+				flight.destroy(Flight)
+
+
+
+class Bullet(pygame.sprite.Sprite):
+	List = pygame.sprite.Group()
+	spare_list = []
+
+	def __init__(self, x, y, image_string):
+		pygame.sprite.Sprite.__init__(self)
+		self.image = pygame.image.load(image_string)
+
+		self.rect = self.image.get_rect()
+		self.rect.x = x
+		self.rect.y = y
+		self.velx, self.vely = 0, -15
+
+		try:
+			last_element = Bullet.spare_list[-1]
+			difference = abs(self.rect.y - last_element.rect.y)
+
+			if difference < self.rect.height+20:
+				return
+		except Exception:
+			pass
+
+		Bullet.spare_list.append(self)
+		Bullet.List.add(self)
+
+
+	@staticmethod
+	def movement():
+		for bullet in Bullet.List:
+			bullet.rect.y += bullet.vely
+
+
+
+
+
+
 
 
 
