@@ -4,7 +4,7 @@ from classes import *
 
 pygame.init()
 
-SCREENWIDTH, SCREENHEIGHT = 800, 600
+SCREENWIDTH, SCREENHEIGHT = 500, 600
 screen = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT), 0, 32)
 
 
@@ -20,9 +20,11 @@ color = 0
 delta = 5
 
 while True:
-	process(player)
+	process(player,FPS, total_frames, SCREENWIDTH)
 
 	player.motion(SCREENWIDTH, SCREENHEIGHT)
+	Flight.update(SCREENHEIGHT)
+	Bullet.movement()
 
 	total_frames += 1
 
@@ -36,6 +38,7 @@ while True:
 
 	screen.fill((color,color,color))
 	BaseClass.all_sprites.draw(screen)
+	Bullet.List.draw(screen)
 
 
 	pygame.display.flip()
