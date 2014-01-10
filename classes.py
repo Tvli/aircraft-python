@@ -24,11 +24,17 @@ class BaseClass(pygame.sprite.Sprite):
 
 class Player(BaseClass):
 	List = pygame.sprite.Group()
+	spare_list = []
 
 	def __init__(self, x, y, image_string):
 		BaseClass.__init__(self, x, y, image_string)
 		Player.List.add(self)
+		Player.spare_list.append(self)
 		self.velx, self.vely = 0, 0
+		self.score = 0
+
+	def get_score(self):
+		self.score += 100
 
 
 	def motion(self, SCREENWIDTH, SCREENHEIGHT):
@@ -87,7 +93,7 @@ class Bullet(pygame.sprite.Sprite):
 			last_element = Bullet.spare_list[-1]
 			difference = abs(self.rect.y - last_element.rect.y)
 
-			if difference < self.rect.height+20:
+			if difference < self.rect.height + 50:
 				return
 		except Exception:
 			pass
@@ -102,6 +108,10 @@ class Bullet(pygame.sprite.Sprite):
 			bullet.rect.y += bullet.vely
 
 
+	def destroy(self):
+		Bullet.List.remove(self)
+		Bullet.spare_list.remove(self)
+		del self
 
 
 
