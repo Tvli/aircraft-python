@@ -19,7 +19,7 @@ clock = pygame.time.Clock()
 FPS = 24
 
 
-player = Player(SCREENWIDTH / 2.0 - 25, SCREENHEIGHT - 47, "images/player1.bmp")
+player = Player(SCREENWIDTH / 2.0 - 25, SCREENHEIGHT - 47, "images/player.png")
 
 total_frames = 0
 

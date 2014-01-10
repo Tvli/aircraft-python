@@ -53,7 +53,7 @@ def Create_Flight(FPS, total_frames, SCREENWIDTH):
 	three_second = FPS * 3
 	if total_frames % three_second == 0:
 		x = random.randint(1, SCREENWIDTH - 50)
-		classes.Flight(x, -20, "images/craft.jpg")
+		classes.Flight(x, -20, "images/craft.png")
 
 
 def Collisions():
