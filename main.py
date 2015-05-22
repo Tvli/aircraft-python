@@ -28,38 +28,38 @@ color = 0
 delta = 5
 
 while True:
-	process(player,FPS, total_frames, SCREENWIDTH)
+  process(player,FPS, total_frames, SCREENWIDTH)
 
-	if gameover():
-		sleep(1.5)
-		screen_image = pygame.image.load("images/gameover.jpg")
-		screen.blit(screen_image, (0,0))
-		pygame.display.flip()
-		sleep(3)
-		pygame.quit()
-		sys.exit()
-		pass
+  if gameover():
+    sleep(1.5)
+    screen_image = pygame.image.load("images/gameover.jpg")
+    screen.blit(screen_image, (0,0))
+    pygame.display.flip()
+    sleep(3)
+    pygame.quit()
+    sys.exit()
+    pass
 
-	player.motion(SCREENWIDTH, SCREENHEIGHT)
-	Flight.update(SCREENHEIGHT)
-	Bullet.movement()
+  player.motion(SCREENWIDTH, SCREENHEIGHT)
+  Flight.update(SCREENHEIGHT)
+  Bullet.movement()
 
-	total_frames += 1
+  total_frames += 1
 
-	color += delta
-	if color == 255:
-		delta = -5
-	elif color == 0:
-		delta = 5
-	else:
-		pass
+  color += delta
+  if color == 255:
+    delta = -5
+  elif color == 0:
+    delta = 5
+  else:
+    pass
 
-	screen.fill((color,color,color))
-	BaseClass.all_sprites.draw(screen)
-	Bullet.List.draw(screen)
+  screen.fill((color,color,color))
+  BaseClass.all_sprites.draw(screen)
+  Bullet.List.draw(screen)
 
-	screenText.screen_text(screen, 'Score : {0}'.format(player.score), 0, 0)
+  screenText.screen_text(screen, 'Score : {0}'.format(player.score), 0, 0)
 
 
-	pygame.display.flip()
-	clock.tick(FPS)
+  pygame.display.flip()
+  clock.tick(FPS)
